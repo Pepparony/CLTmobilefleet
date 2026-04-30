@@ -38,12 +38,11 @@ export default function FleetHomePage() {
           className="text-[52px] md:text-[82px] leading-[1.03] text-[#171818] mb-7 max-w-4xl"
           style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
         >
-          Your fleet, maintained.{' '}
-          <span className="text-yellow-400 italic">Without lifting a finger.</span>
+          <span className="text-yellow-400 italic">White Glove</span> Comprehensive Fleet Maintenance
         </h1>
 
         <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-xl mb-10">
-          We visit your vehicles on a regular schedule, handle everything that needs doing, and send you a full photo report. You never book, schedule, or follow up on anything.
+          No need to call or book, we inspect and service your vehicle on a regular scheduled basis. Ensure your team does not have to think about their vehicle- ever.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
@@ -74,7 +73,7 @@ export default function FleetHomePage() {
             <span className="text-yellow-400 italic">Never think about it again.</span>
           </h2>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-16">
-            No scheduling. No reminders. No chasing mechanics. We come to your vehicles on a regular cadence — inspect everything, handle what's needed, and document every detail. White glove, start to finish.
+            No scheduling. No reminders. No chasing mechanics. We come to your vehicles on a regular scheduke — inspect everything, handle what's needed, and document every detail. White glove, start to finish.
           </p>
 
           <div className="grid md:grid-cols-3 gap-5 text-left">
@@ -82,12 +81,12 @@ export default function FleetHomePage() {
               {
                 icon: '📅',
                 title: 'Regular visits on autopilot',
-                desc: 'We set the schedule. Our technician shows up every month — no calls, no bookings, no reminders needed from your team.',
+                desc: 'You set the schedule. Our technician shows up every month — no calls, no bookings, no reminders needed from your team.',
               },
               {
                 icon: '🔧',
                 title: 'Everything handled on the spot',
-                desc: 'Oil change due? Done. Brakes getting low? Handled. Any service that\'s needed gets taken care of in the same visit.',
+                desc: 'Oil change due? Done. Brakes getting low? Handled. Any service that\'s needed gets taken care of in the same visit. No additional charge.',
               },
               {
                 icon: '📸',
