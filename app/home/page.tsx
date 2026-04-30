@@ -38,11 +38,11 @@ export default function FleetHomePage() {
           className="text-[52px] md:text-[82px] leading-[1.03] text-[#171818] mb-7 max-w-4xl"
           style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
         >
-          <span className="text-yellow-400 italic">White Glove</span> Comprehensive Fleet Maintenance
+          White Glove <br />Comprehensive Fleet Maintenance
         </h1>
 
         <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-xl mb-10">
-          No need to call or book, we inspect and service your vehicle on a regular scheduled basis. Ensure your team does not have to think about their vehicle- ever.
+          No need to call or book, we inspect and service your vehicle on a regular scheduled basis. Ensure your team does not even have to think about their wiper fluid.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
