@@ -42,7 +42,7 @@ export default function FleetHomePage() {
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
               Monthly Fleet Maintenance.<br />
-              <span className="text-yellow-400">We Come To You.</span>
+              <span className="text-yellow-400">We Come To You</span>
             </h1>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
               One monthly visit per vehicle. Full inspection, any needed service included, photo-documented reports for every vehicle in your fleet — all managed through a dedicated portal.
