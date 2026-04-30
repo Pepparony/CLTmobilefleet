@@ -4,6 +4,16 @@ import { ObjectId } from 'mongodb';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
+export interface RecurringSchedule {
+  active: boolean;
+  startDate: string;        // YYYY-MM-DD
+  intervalDays: number;     // 14
+  mechanicAssigned?: string | null;
+  monthsOut: number;
+  generatedAt: string;
+}
+
+
 export interface FleetAccount {
   _id: string;
   companyName: string;          // "Acme Plumbing"
@@ -17,6 +27,7 @@ export interface FleetAccount {
   createdBy: string;            // admin email who set it up
   notes?: string;               // internal admin notes
     accessCode: string;      // ← add this
+    recurringSchedule?: RecurringSchedule; 
 
 }
 
