@@ -11,8 +11,6 @@ interface Props {
   visits:   FleetServiceVisit[];
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
 function fmtDate(d?: string) {
   if (!d) return '—';
   const [y, m, day] = d.split('-').map(Number);
@@ -55,70 +53,78 @@ function VehicleCard({
   return (
     <button
       onClick={() => onSelect(vehicle)}
-      className="w-full bg-[#171717] border border-white/8 rounded-2xl p-5 text-left hover:border-yellow-500/30 hover:bg-white/3 transition-all group"
+      className="w-full bg-[#171717] border border-white/8 rounded-2xl overflow-hidden text-left hover:border-yellow-500/30 transition-all group"
     >
-      {/* Vehicle name */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
+      {/* Photo */}
+      <div className="relative h-40 overflow-hidden bg-white/5">
+        {vehicle.photoUrl ? (
+          <img
+            src={vehicle.photoUrl}
+            alt={vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="text-5xl opacity-30">🚐</span>
+          </div>
+        )}
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#171717] via-[#171717]/20 to-transparent" />
+        {/* Arrow */}
+        <div className="absolute top-3 right-3 text-gray-500 group-hover:text-yellow-400 transition text-lg">→</div>
+        {/* Name on photo */}
+        <div className="absolute bottom-3 left-4 right-8">
           <p className="text-white font-bold text-base leading-tight">
             {vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
           </p>
           {vehicle.nickname && (
-            <p className="text-gray-500 text-xs mt-0.5">
+            <p className="text-gray-400 text-xs mt-0.5">
               {vehicle.year} {vehicle.make} {vehicle.model}
             </p>
           )}
         </div>
-        <div className="text-gray-600 group-hover:text-yellow-400 transition text-lg flex-shrink-0">→</div>
       </div>
 
-      {/* Stats row */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="bg-white/4 rounded-xl px-3 py-2.5 text-center">
-          <p className="text-white font-bold text-lg leading-none">{totalVisits}</p>
-          <p className="text-gray-500 text-[10px] mt-1 uppercase tracking-wider">Services</p>
+      {/* Body */}
+      <div className="p-4">
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          <div className="bg-white/4 rounded-xl px-2 py-2.5 text-center">
+            <p className="text-white font-bold text-lg leading-none">{totalVisits}</p>
+            <p className="text-gray-500 text-[9px] mt-1 uppercase tracking-wider">Services</p>
+          </div>
+          <div className="bg-white/4 rounded-xl px-2 py-2.5 text-center col-span-2">
+            <p className="text-gray-400 text-[9px] uppercase tracking-wider mb-0.5">Last Service</p>
+            <p className="text-white text-xs font-semibold">{lastCompleted ? fmtDate(lastCompleted.scheduledDate) : 'None yet'}</p>
+          </div>
         </div>
-        <div className="bg-white/4 rounded-xl px-3 py-2.5 text-center col-span-2">
-          <p className="text-gray-400 text-[10px] uppercase tracking-wider mb-1">Last Service</p>
-          <p className="text-white text-xs font-semibold">{lastCompleted ? fmtDate(lastCompleted.scheduledDate) : 'None yet'}</p>
-        </div>
-      </div>
 
-      {/* Next visit */}
-      {nextScheduled ? (
-        <div className="bg-yellow-500/8 border border-yellow-500/20 rounded-xl px-3.5 py-2.5">
-          <p className="text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-0.5">Next Visit</p>
-          <p className="text-white text-sm font-semibold">{fmtDate(nextScheduled.scheduledDate)}</p>
-        </div>
-      ) : (
-        <div className="bg-white/3 border border-white/8 rounded-xl px-3.5 py-2.5">
-          <p className="text-gray-500 text-xs">No upcoming visits scheduled</p>
-        </div>
-      )}
+        {nextScheduled ? (
+          <div className="bg-yellow-500/8 border border-yellow-500/20 rounded-xl px-3.5 py-2.5">
+            <p className="text-yellow-400 text-[9px] font-bold uppercase tracking-wider mb-0.5">Next Visit</p>
+            <p className="text-white text-xs font-semibold">{fmtDate(nextScheduled.scheduledDate)}</p>
+          </div>
+        ) : (
+          <div className="bg-white/3 border border-white/8 rounded-xl px-3.5 py-2.5">
+            <p className="text-gray-500 text-xs">No upcoming visits scheduled</p>
+          </div>
+        )}
+      </div>
     </button>
   );
 }
 
 // ─── Visit Row ────────────────────────────────────────────────────────────────
 
-function VisitRow({
-  visit,
-  onClick,
-}: {
-  visit:   FleetServiceVisit;
-  onClick: (v: FleetServiceVisit) => void;
-}) {
+function VisitRow({ visit, onClick }: { visit: FleetServiceVisit; onClick: (v: FleetServiceVisit) => void }) {
   return (
     <button
       onClick={() => onClick(visit)}
       className="w-full flex items-center justify-between gap-4 px-4 py-3.5 border-b border-white/6 last:border-0 hover:bg-white/3 transition text-left"
     >
       <div className="flex items-center gap-3">
-        <div className="flex-shrink-0">
-          <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${statusColor(visit.status)}`}>
-            {statusLabel(visit.status)}
-          </span>
-        </div>
+        <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border flex-shrink-0 ${statusColor(visit.status)}`}>
+          {statusLabel(visit.status)}
+        </span>
         <div>
           <p className="text-white text-sm font-semibold">{fmtDate(visit.scheduledDate)}</p>
           {visit.report?.workPerformed && (
@@ -135,11 +141,7 @@ function VisitRow({
 
 // ─── Report Modal ─────────────────────────────────────────────────────────────
 
-function ReportModal({
-  visit,
-  vehicle,
-  onClose,
-}: {
+function ReportModal({ visit, vehicle, onClose }: {
   visit:   FleetServiceVisit;
   vehicle: FleetVehicle;
   onClose: () => void;
@@ -151,50 +153,43 @@ function ReportModal({
   const photos = r.photos || [];
 
   const inspectionItems = [
-    { label: 'Coolant',         val: r.coolantStatus },
-    { label: 'Brake Fluid',     val: r.brakeFluidStatus },
-    { label: 'Front Brakes',    val: r.frontBrakesLife ? `${r.frontBrakesLife}mm` : undefined },
-    { label: 'Rear Brakes',     val: r.rearBrakesLife  ? `${r.rearBrakesLife}mm`  : undefined },
-    { label: 'Battery',         val: r.batteryVoltage  ? `${r.batteryVoltage}V`   : undefined },
-    { label: 'Tire Tread',      val: r.tireTread },
-    { label: 'Oil Changed',     val: r.oilChanged !== undefined ? (r.oilChanged ? 'Yes' : 'No') : undefined },
-    { label: 'Mileage',         val: r.mileageAtService ? `${Number(r.mileageAtService).toLocaleString()} mi` : undefined },
+    { label: 'Coolant',       val: r.coolantStatus },
+    { label: 'Brake Fluid',   val: r.brakeFluidStatus },
+    { label: 'Front Brakes',  val: r.frontBrakesLife ? `${r.frontBrakesLife}mm` : undefined },
+    { label: 'Rear Brakes',   val: r.rearBrakesLife  ? `${r.rearBrakesLife}mm`  : undefined },
+    { label: 'Battery',       val: r.batteryVoltage  ? `${r.batteryVoltage}V`   : undefined },
+    { label: 'Tire Tread',    val: r.tireTread },
+    { label: 'Oil Changed',   val: r.oilChanged !== undefined ? (r.oilChanged ? 'Yes' : 'No') : undefined },
+    { label: 'Mileage',       val: r.mileageAtService ? `${Number(r.mileageAtService).toLocaleString()} mi` : undefined },
   ].filter(i => i.val);
 
   return (
-    <div
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-      onClick={onClose}
-    >
-      <div
-        className="bg-[#171717] border border-white/10 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl"
-        onClick={e => e.stopPropagation()}
-      >
-        {/* Modal header */}
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div className="bg-[#171717] border border-white/10 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
+
+        {/* Header */}
         <div className="bg-[#0f0f0f] border-b border-white/8 px-6 py-4 flex items-center justify-between flex-shrink-0">
           <div>
             <p className="text-yellow-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-0.5">Service Report</p>
             <h2 className="text-white font-bold text-lg">
               {vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
             </h2>
-            <p className="text-gray-500 text-xs mt-0.5">{fmtDate(visit.scheduledDate)}{r.submittedBy ? ` · Tech: ${r.submittedBy.split(' ')[0]}` : ''}</p>
+            <p className="text-gray-500 text-xs mt-0.5">
+              {fmtDate(visit.scheduledDate)}{r.submittedBy ? ` · Tech: ${r.submittedBy.split(' ')[0]}` : ''}
+              {r.mileageAtService ? ` · ${Number(r.mileageAtService).toLocaleString()} mi` : ''}
+            </p>
           </div>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-white w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/8 transition text-xl"
-          >×</button>
+          <button onClick={onClose} className="text-gray-500 hover:text-white w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/8 transition text-xl">×</button>
         </div>
 
-        {/* Modal body */}
+        {/* Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-5">
 
-          {/* Work performed */}
           <div className="bg-white/4 border border-white/8 rounded-xl px-4 py-4">
             <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">🔧 Work Performed</p>
             <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">{r.workPerformed}</p>
           </div>
 
-          {/* Parts replaced */}
           {r.partsReplaced && (
             <div className="bg-white/4 border border-white/8 rounded-xl px-4 py-4">
               <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">📦 Parts Replaced</p>
@@ -202,7 +197,6 @@ function ReportModal({
             </div>
           )}
 
-          {/* Inspection grid */}
           {inspectionItems.length > 0 && (
             <div className="bg-white/4 border border-white/8 rounded-xl px-4 py-4">
               <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-3">🔍 Inspection Results</p>
@@ -217,7 +211,6 @@ function ReportModal({
             </div>
           )}
 
-          {/* Additional concerns */}
           {r.additionalConcerns && (
             <div className="bg-orange-500/8 border border-orange-500/20 rounded-xl px-4 py-4">
               <p className="text-orange-400 text-[10px] font-bold uppercase tracking-wider mb-2">⚠️ Concerns Noted</p>
@@ -225,7 +218,6 @@ function ReportModal({
             </div>
           )}
 
-          {/* Recommended next service */}
           {r.recommendedNextService && (
             <div className="bg-yellow-500/8 border border-yellow-500/20 rounded-xl px-4 py-4">
               <p className="text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-2">💡 Recommended Next Service</p>
@@ -233,12 +225,9 @@ function ReportModal({
             </div>
           )}
 
-          {/* Photos */}
           {photos.length > 0 && (
             <div>
-              <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-3">
-                📸 Photos ({photos.length})
-              </p>
+              <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-3">📸 Photos ({photos.length})</p>
               <div className="grid grid-cols-3 gap-2">
                 {photos.map((url, i) => (
                   <button
@@ -246,11 +235,7 @@ function ReportModal({
                     onClick={() => setLightboxIdx(i)}
                     className="relative aspect-square rounded-xl overflow-hidden border border-white/8 hover:border-yellow-400/40 transition group"
                   >
-                    <img
-                      src={url}
-                      alt={r.photoCaptions?.[i] || `Photo ${i + 1}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+                    <img src={url} alt={r.photoCaptions?.[i] || `Photo ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     {r.photoCaptions?.[i] && (
                       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 py-1.5 opacity-0 group-hover:opacity-100 transition">
                         <p className="text-white text-[9px] font-medium truncate">{r.photoCaptions[i]}</p>
@@ -266,31 +251,18 @@ function ReportModal({
 
       {/* Lightbox */}
       {lightboxIdx !== null && (
-        <div
-          className="fixed inset-0 z-[60] bg-black/95 flex flex-col"
-          onClick={() => setLightboxIdx(null)}
-        >
+        <div className="fixed inset-0 z-[60] bg-black/95 flex flex-col" onClick={() => setLightboxIdx(null)}>
           <div className="flex justify-between items-center px-5 py-3 flex-shrink-0" onClick={e => e.stopPropagation()}>
             <span className="text-white/40 text-xs">{lightboxIdx + 1} / {photos.length}</span>
             <button onClick={() => setLightboxIdx(null)} className="text-white/50 hover:text-white text-2xl w-10 h-10 flex items-center justify-center">✕</button>
           </div>
           <div className="flex-1 flex items-center justify-center relative px-12" onClick={e => e.stopPropagation()}>
             {photos.length > 1 && (
-              <button
-                onClick={() => setLightboxIdx(i => (i! - 1 + photos.length) % photos.length)}
-                className="absolute left-2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl"
-              >‹</button>
+              <button onClick={() => setLightboxIdx(i => (i! - 1 + photos.length) % photos.length)} className="absolute left-2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl">‹</button>
             )}
-            <img
-              src={photos[lightboxIdx]}
-              alt={r.photoCaptions?.[lightboxIdx] || `Photo ${lightboxIdx + 1}`}
-              className="max-w-full max-h-[80vh] object-contain rounded-xl"
-            />
+            <img src={photos[lightboxIdx]} alt={r.photoCaptions?.[lightboxIdx] || `Photo ${lightboxIdx + 1}`} className="max-w-full max-h-[80vh] object-contain rounded-xl" />
             {photos.length > 1 && (
-              <button
-                onClick={() => setLightboxIdx(i => (i! + 1) % photos.length)}
-                className="absolute right-2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl"
-              >›</button>
+              <button onClick={() => setLightboxIdx(i => (i! + 1) % photos.length)} className="absolute right-2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl">›</button>
             )}
           </div>
           {r.photoCaptions?.[lightboxIdx] && (
@@ -302,13 +274,9 @@ function ReportModal({
   );
 }
 
-// ─── Vehicle Detail View ──────────────────────────────────────────────────────
+// ─── Vehicle Detail ───────────────────────────────────────────────────────────
 
-function VehicleDetail({
-  vehicle,
-  visits,
-  onBack,
-}: {
+function VehicleDetail({ vehicle, visits, onBack }: {
   vehicle: FleetVehicle;
   visits:  FleetServiceVisit[];
   onBack:  () => void;
@@ -321,24 +289,24 @@ function VehicleDetail({
 
   return (
     <div>
-      {/* Back */}
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-gray-500 hover:text-white text-sm transition mb-6"
-      >
+      <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-white text-sm transition mb-6">
         ← Back to Fleet
       </button>
 
-      {/* Vehicle header */}
-      <div className="bg-[#171717] border border-white/8 rounded-2xl p-6 mb-6">
-        <div className="flex items-start justify-between gap-4">
+      {/* Vehicle header with photo */}
+      <div className="bg-[#171717] border border-white/8 rounded-2xl overflow-hidden mb-6">
+        {vehicle.photoUrl && (
+          <div className="relative h-48 overflow-hidden">
+            <img src={vehicle.photoUrl} alt={vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#171717] via-transparent to-transparent" />
+          </div>
+        )}
+        <div className="p-6 flex items-start justify-between gap-4">
           <div>
             <h2 className="text-white text-2xl font-bold">
               {vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
             </h2>
-            {vehicle.nickname && (
-              <p className="text-gray-500 text-sm mt-0.5">{vehicle.year} {vehicle.make} {vehicle.model}</p>
-            )}
+            {vehicle.nickname && <p className="text-gray-500 text-sm mt-0.5">{vehicle.year} {vehicle.make} {vehicle.model}</p>}
             <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3">
               {vehicle.licensePlate && <span className="text-gray-400 text-xs">🪪 {vehicle.licensePlate}</span>}
               {vehicle.vin          && <span className="text-gray-400 text-xs font-mono">VIN: {vehicle.vin}</span>}
@@ -373,11 +341,7 @@ function VehicleDetail({
       </div>
 
       {selectedVisit && (
-        <ReportModal
-          visit={selectedVisit}
-          vehicle={vehicle}
-          onClose={() => setSelectedVisit(null)}
-        />
+        <ReportModal visit={selectedVisit} vehicle={vehicle} onClose={() => setSelectedVisit(null)} />
       )}
     </div>
   );
@@ -388,11 +352,10 @@ function VehicleDetail({
 export default function FleetDashboard({ account, vehicles, visits }: Props) {
   const [selectedVehicle, setSelectedVehicle] = useState<FleetVehicle | null>(null);
 
-  const totalCompleted  = visits.filter(v => v.status === 'completed').length;
-  const nextVisits      = visits
+  const totalCompleted = visits.filter(v => v.status === 'completed').length;
+  const nextVisit = visits
     .filter(v => v.status === 'scheduled')
-    .sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate));
-  const nextVisit       = nextVisits[0];
+    .sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate))[0];
 
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
@@ -418,26 +381,19 @@ export default function FleetDashboard({ account, vehicles, visits }: Props) {
       </header>
 
       <main className="max-w-5xl mx-auto px-6 py-8">
-
         {selectedVehicle ? (
-          <VehicleDetail
-            vehicle={selectedVehicle}
-            visits={visits}
-            onBack={() => setSelectedVehicle(null)}
-          />
+          <VehicleDetail vehicle={selectedVehicle} visits={visits} onBack={() => setSelectedVehicle(null)} />
         ) : (
           <>
-            {/* Welcome + summary */}
+            {/* Welcome */}
             <div className="mb-8">
               <h1 className="text-white text-3xl font-bold mb-1">
                 Welcome back, {account.contactName.split(' ')[0]}.
               </h1>
-              <p className="text-gray-500 text-sm">
-                Here's the current status of your fleet.
-              </p>
+              <p className="text-gray-500 text-sm">Here's the current status of your fleet.</p>
             </div>
 
-            {/* Summary cards */}
+            {/* Summary */}
             <div className="grid grid-cols-3 gap-4 mb-8">
               <div className="bg-[#171717] border border-white/8 rounded-2xl px-5 py-4">
                 <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Vehicles</p>
@@ -456,7 +412,7 @@ export default function FleetDashboard({ account, vehicles, visits }: Props) {
             </div>
 
             {/* Vehicle grid */}
-            <div className="mb-4">
+            <div>
               <h2 className="text-white font-bold text-lg mb-4">Your Fleet</h2>
               {vehicles.length === 0 ? (
                 <div className="bg-[#171717] border border-white/8 rounded-2xl p-8 text-center">

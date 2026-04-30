@@ -28,6 +28,7 @@ export interface FleetVehicle {
   model: string;
   vin?: string;
   licensePlate?: string;
+  photoUrl?: string; 
   color?: string;
   nickname?: string;            // e.g. "Truck #3" or "Manager's Sedan"
   active: boolean;
