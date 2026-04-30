@@ -45,7 +45,7 @@ export default function FleetHomePage() {
               <span className="text-yellow-400">We Come To You</span>
             </h1>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
-              One monthly visit per vehicle. Full inspection, any needed service included, photo-documented reports for every vehicle in your fleet — all managed through a dedicated portal.
+              One monthly visit per vehicle. Full Inspection, any needed service included, photo-documented reports for every vehicle in your fleet — all managed through a dedicated portal.
             </p>
             <div className="flex flex-wrap gap-4">
               <a
