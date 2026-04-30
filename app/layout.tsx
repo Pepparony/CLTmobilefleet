@@ -18,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: 'CLTmobile Fleet | Premium Mobile Fleet Maintenance · Charlotte, NC',
-  description: 'Monthly mobile fleet maintenance for Charlotte businesses. Full inspection, any needed service, photo-documented reports — we come to you.',
+  description: 'Monthly mobile fleet maintenance for Charlotte businesses. Full inspection, any needed service, photo-documented reports.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

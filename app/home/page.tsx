@@ -7,7 +7,7 @@ export default function FleetHomePage() {
     <div className="min-h-screen bg-[#edf2f4]" style={{ fontFamily: '"DM Sans", system-ui, sans-serif' }}>
 
       {/* ── Nav ── */}
-      <nav className="fixed w-full bg-[#edf2f4] z-50 px-6 md:px-24 py-4 flex items-center justify-between border-b border-black/5">
+      <nav className="fixed w-full bg-[#edf2f4]/95 backdrop-blur-sm z-50 px-6 md:px-24 py-4 flex items-center justify-between border-b border-black/5">
         <Image
           src="/CLTmobileLogoBg-White-removebg.png"
           alt="CLTmobile"
@@ -16,10 +16,7 @@ export default function FleetHomePage() {
           className="object-contain"
         />
         <div className="flex items-center gap-4">
-          <a
-            href="tel:+17045869012"
-            className="hidden md:block text-[#171818] text-sm font-medium hover:text-yellow-500 transition-colors"
-          >
+          <a href="tel:+17045869012" className="hidden md:block text-[#171818] text-sm font-medium hover:text-yellow-500 transition-colors">
             704-586-9012
           </a>
           <Link
@@ -32,21 +29,21 @@ export default function FleetHomePage() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="pt-40 pb-28 px-6 md:px-24 flex flex-col items-center text-center">
+      <section className="pt-44 pb-32 px-6 md:px-24 flex flex-col items-center text-center">
         <div className="inline-flex items-center gap-2 bg-yellow-300 bg-opacity-60 rounded-full px-5 py-2 mb-8">
           <span className="text-[#171818] text-sm font-medium">Premium Fleet Maintenance · Charlotte, NC</span>
         </div>
 
         <h1
-          className="text-[52px] md:text-[80px] leading-[1.05] text-[#171818] mb-6 max-w-4xl"
+          className="text-[52px] md:text-[82px] leading-[1.03] text-[#171818] mb-7 max-w-4xl"
           style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
         >
-          Fleet Maintenance,{' '}
-          <span className="text-yellow-400 italic">Done Right.</span>
+          Your fleet, maintained.{' '}
+          <span className="text-yellow-400 italic">Without lifting a finger.</span>
         </h1>
 
-        <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl mb-10">
-          One monthly visit per vehicle. Full inspection, any needed service included, photo-documented reports for your entire fleet — we come to you.
+        <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-xl mb-10">
+          We visit your vehicles on a regular schedule, handle everything that needs doing, and send you a full photo report. You never book, schedule, or follow up on anything.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
@@ -63,78 +60,44 @@ export default function FleetHomePage() {
             (704) 586-9012
           </a>
         </div>
-
-        {/* Trust strip */}
-        <div className="flex flex-wrap justify-center gap-8 mt-16 text-sm text-gray-400">
-          {['1,000+ Repairs Completed', '4.87★ Average Rating', 'Photo-Verified Every Visit', '12-Month Warranty'].map(item => (
-            <div key={item} className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
       </section>
 
-      {/* ── Dark divider section — what it is ── */}
-      <section className="bg-[#171818] py-24 px-6 md:px-24">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-yellow-300 text-xs uppercase tracking-[0.2em] font-semibold mb-4">How It Works</p>
-            <h2
-              className="text-[#edf2f4] text-[40px] md:text-[52px] leading-tight mb-6"
-              style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
-            >
-              We handle everything.{' '}
-              <span className="text-yellow-400 italic">Every month.</span>
-            </h2>
-            <p className="text-gray-400 text-lg leading-relaxed">
-              CLTmobile sets up your fleet account, schedules your visits, and keeps every report documented in your private portal. Your team never has to think about vehicle maintenance again.
-            </p>
-          </div>
-          <div className="space-y-4">
-            {[
-              { step: '01', title: 'We Set You Up', desc: 'We create your fleet account, add all your vehicles, and schedule your monthly visits. You do nothing.' },
-              { step: '02', title: 'We Come to You', desc: 'Our technician arrives on schedule. Full inspection, oil change when due, any needed service — all included.' },
-              { step: '03', title: 'You See Everything', desc: 'Same-day photo report filed per vehicle. Log into your portal anytime to see exactly what was done.' },
-            ].map(item => (
-              <div key={item.step} className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 flex gap-5 items-start">
-                <span className="text-yellow-400/40 text-3xl font-black leading-none flex-shrink-0">{item.step}</span>
-                <div>
-                  <p className="text-[#edf2f4] font-bold text-base mb-1">{item.title}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Dark — the pitch ── */}
+      <section className="bg-[#171818] py-28 px-6 md:px-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-yellow-300 text-xs uppercase tracking-[0.2em] font-semibold mb-5">The Experience</p>
+          <h2
+            className="text-[#edf2f4] text-[38px] md:text-[56px] leading-tight mb-8"
+            style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
+          >
+            Set it up once.{' '}
+            <span className="text-yellow-400 italic">Never think about it again.</span>
+          </h2>
+          <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-16">
+            No scheduling. No reminders. No chasing mechanics. We come to your vehicles on a regular cadence — inspect everything, handle what's needed, and document every detail. White glove, start to finish.
+          </p>
 
-      {/* ── What's included ── */}
-      <section className="py-24 px-6 md:px-24 bg-[#edf2f4]">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gray-400 text-xs uppercase tracking-[0.2em] mb-3">The Service</p>
-            <h2
-              className="text-[#171818] text-[40px] md:text-[52px] leading-tight"
-              style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
-            >
-              Everything Included.{' '}
-              <span className="text-yellow-400 italic">No Surprises.</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-5 text-left">
             {[
-              { icon: '🔍', title: 'Full Inspection', desc: 'Brakes, fluids, battery, tires, engine — every vehicle gets a complete look every visit.' },
-              { icon: '🔧', title: 'Service Included', desc: 'Oil changes, fluid top-offs, and any needed service at no additional labor cost. One flat rate.' },
-              { icon: '📸', title: 'Photo Reports', desc: 'Before and after photos of every service, filed in your portal the same day it happens.' },
-              { icon: '🖥️', title: 'Fleet Portal', desc: 'Your own private dashboard. View every vehicle, every report, every visit — any time.' },
-              { icon: '⚡', title: 'Priority Scheduling', desc: 'Fleet accounts move to the front of the line. When something urgent comes up, we respond first.' },
-              { icon: '🛡️', title: '12-Month Warranty', desc: 'Every repair covered for 12 months or 10,000 miles. We stand behind every job, every time.' },
+              {
+                icon: '📅',
+                title: 'Regular visits on autopilot',
+                desc: 'We set the schedule. Our technician shows up every month — no calls, no bookings, no reminders needed from your team.',
+              },
+              {
+                icon: '🔧',
+                title: 'Everything handled on the spot',
+                desc: 'Oil change due? Done. Brakes getting low? Handled. Any service that\'s needed gets taken care of in the same visit.',
+              },
+              {
+                icon: '📸',
+                title: 'Full report, every time',
+                desc: 'Before and after photos, inspection results, parts replaced — filed same day and waiting in your portal.',
+              },
             ].map(item => (
-              <div key={item.title} className="bg-white rounded-2xl p-6 shadow-sm shadow-black/[0.04] hover:shadow-md transition-all duration-300">
+              <div key={item.title} className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6">
                 <div className="text-3xl mb-4">{item.icon}</div>
-                <h3 className="text-[#171818] font-bold text-base mb-2">{item.title}</h3>
+                <h3 className="text-[#edf2f4] font-bold text-base mb-2">{item.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
@@ -142,28 +105,28 @@ export default function FleetHomePage() {
         </div>
       </section>
 
-      {/* ── Why CLTmobile ── */}
-      <section className="py-24 px-6 md:px-24 bg-white">
+      {/* ── App section ── */}
+      <section className="py-28 px-6 md:px-24 bg-[#edf2f4]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-6">
-            <p className="text-gray-400 text-xs uppercase tracking-[0.2em]">Why Fleet Managers Choose Us</p>
+          <div>
+            <p className="text-gray-400 text-xs uppercase tracking-[0.2em] mb-4">Built For You</p>
             <h2
-              className="text-[#171818] text-[40px] md:text-[48px] leading-tight"
+              className="text-[#171818] text-[38px] md:text-[50px] leading-tight mb-6"
               style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
             >
-              You've got enough to{' '}
-              <span className="text-yellow-400 italic">manage.</span>
+              Your own fleet portal.{' '}
+              <span className="text-yellow-400 italic">Our competitors can't say the same.</span>
             </h2>
-            <p className="text-gray-500 text-lg leading-relaxed">
-              Fleet maintenance shouldn't be a phone tag exercise with mechanics who give you vague invoices. We built this service to be completely hands-off for your team — with full transparency on everything we do.
+            <p className="text-gray-500 text-lg leading-relaxed mb-8">
+              Every fleet customer gets a private portal built specifically for them. Log in any time and see the full history of every vehicle — every visit, every photo, every service note. No phone calls. No PDFs in your inbox. Just a clean, organized dashboard that tells you exactly what's been done.
             </p>
             <div className="space-y-3">
               {[
-                'No dropping vehicles off or arranging rides',
-                'No chasing mechanics for status updates',
-                'No surprise invoices or unexplained charges',
-                'No guessing what was actually done on each vehicle',
-                'No missed maintenance — we keep the schedule',
+                'Every vehicle in one place',
+                'Full photo report per visit',
+                'Inspection results — brakes, fluids, battery, tires',
+                'Upcoming visits scheduled and visible',
+                'Access for your whole team',
               ].map(item => (
                 <div key={item} className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-yellow-300 flex items-center justify-center flex-shrink-0">
@@ -174,17 +137,52 @@ export default function FleetHomePage() {
               ))}
             </div>
           </div>
-          <div className="space-y-4">
-            <div className="bg-[#171818] rounded-2xl p-7">
-              <p className="text-yellow-300 text-xs uppercase tracking-widest font-semibold mb-3">Your Portal</p>
-              <p className="text-[#edf2f4] font-bold text-xl mb-2">Every vehicle. Every visit. Every photo.</p>
-              <p className="text-gray-400 text-sm leading-relaxed">Log in anytime and see your full fleet's service history — no phone calls needed to find out what was done and when.</p>
+
+          {/* Fake portal preview card */}
+          <div className="bg-[#171818] rounded-3xl p-6 shadow-2xl shadow-black/20">
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <p className="text-yellow-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-0.5">CLTmobile</p>
+                <p className="text-white font-bold text-base">Fleet Portal</p>
+              </div>
+              <div className="text-green-400 text-xs font-semibold bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-full">
+                ● Live
+              </div>
             </div>
-            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-7">
-              <p className="text-yellow-700 text-xs uppercase tracking-widest font-semibold mb-3">White Glove Setup</p>
-              <p className="text-[#171818] font-bold text-xl mb-2">One call. We handle the rest.</p>
-              <p className="text-gray-500 text-sm leading-relaxed">Tell us your vehicles. We build your account, configure your schedule, and your portal is live within 24 hours.</p>
+            <div className="grid grid-cols-3 gap-3 mb-5">
+              {[
+                { val: '6', label: 'Vehicles' },
+                { val: '24', label: 'Services' },
+                { val: 'May 12', label: 'Next Visit' },
+              ].map(s => (
+                <div key={s.label} className="bg-white/5 border border-white/8 rounded-xl p-3 text-center">
+                  <p className="text-white font-bold text-xl">{s.val}</p>
+                  <p className="text-gray-500 text-[10px] mt-0.5">{s.label}</p>
+                </div>
+              ))}
             </div>
+            <div className="space-y-2.5">
+              {[
+                { name: 'Truck #1 — 2021 Ford Transit', status: 'completed', date: 'Apr 3' },
+                { name: 'Truck #2 — 2020 Ram 1500', status: 'completed', date: 'Apr 3' },
+                { name: 'Manager — 2022 Honda CR-V', status: 'scheduled', date: 'May 12' },
+              ].map(v => (
+                <div key={v.name} className="flex items-center justify-between bg-white/4 border border-white/6 rounded-xl px-4 py-3">
+                  <div>
+                    <p className="text-white text-xs font-semibold">{v.name}</p>
+                    <p className="text-gray-500 text-[10px] mt-0.5">{v.date}</p>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
+                    v.status === 'completed'
+                      ? 'text-green-400 bg-green-500/10 border-green-500/20'
+                      : 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
+                  }`}>
+                    {v.status === 'completed' ? '✓ Done' : '● Upcoming'}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-gray-600 text-[10px] mt-4">fleet.cltmobile.com · your private portal</p>
           </div>
         </div>
       </section>
@@ -192,16 +190,16 @@ export default function FleetHomePage() {
       {/* ── Final CTA ── */}
       <section className="bg-[#171818] py-28 px-6 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-yellow-300/8 to-transparent pointer-events-none rounded-bl-full" />
-        <div className="relative z-10 max-w-3xl mx-auto">
+        <div className="relative z-10 max-w-2xl mx-auto">
           <h2
-            className="text-[#edf2f4] text-[44px] md:text-[64px] leading-[1.05] mb-6"
+            className="text-[#edf2f4] text-[40px] md:text-[60px] leading-[1.05] mb-6"
             style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
           >
-            Ready to take fleet maintenance{' '}
-            <span className="text-yellow-400 italic">off your plate?</span>
+            One call.{' '}
+            <span className="text-yellow-400 italic">We handle everything else.</span>
           </h2>
-          <p className="text-gray-400 text-lg leading-relaxed mb-10 max-w-xl mx-auto">
-            Tell us how many vehicles you have. We'll put together a fleet plan and have you set up within 24 hours.
+          <p className="text-gray-400 text-lg leading-relaxed mb-10">
+            Tell us how many vehicles you have. We'll set up your account, configure your schedule, and have your portal live within 24 hours.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a
@@ -230,11 +228,11 @@ export default function FleetHomePage() {
       <footer className="bg-[#171818] border-t border-white/[0.06] py-10 px-6 md:px-24">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <Image
-            src="/CLTmobileLogoBg-White-removebg.png"
+            src="/823FA646-B658-4A93-9111-0218F6A397A0_1_201_a.jpeg"
             alt="CLTmobile"
-            width={110}
-            height={30}
-            className="object-contain opacity-60"
+            width={48}
+            height={48}
+            className="object-contain rounded-xl"
           />
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600">
             <a href="tel:+17045869012" className="hover:text-gray-400 transition">(704) 586-9012</a>
