@@ -38,7 +38,7 @@ export default function FleetHomePage() {
           className="text-[52px] md:text-[82px] leading-[1.03] text-[#171818] mb-7 max-w-4xl"
           style={{ fontFamily: '"Instrument Serif", Georgia, serif' }}
         >
-          White Glove <br />Comprehensive Fleet Maintenance
+          White Glove, Comprehensive Fleet Maintenance
         </h1>
 
         <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-xl mb-10">
