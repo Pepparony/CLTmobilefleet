@@ -39,12 +39,20 @@ export interface FleetVehicle {
   model: string;
   vin?: string;
   licensePlate?: string;
-  photoUrl?: string; 
   color?: string;
   nickname?: string;            // e.g. "Truck #3" or "Manager's Sedan"
   active: boolean;
   addedAt: string;
   addedBy: string;              // admin email
+  photoUrl?: string;            // ← add this
+  recurringSchedule?: {         // ← and this
+    active: boolean;
+    startDate: string;
+    intervalDays: number;
+    mechanicAssigned?: string | null;
+    monthsOut: number;
+    generatedAt: string;
+  };
 }
 
 export interface FleetServiceVisit {
