@@ -31,21 +31,32 @@ export interface FleetAccount {
 
 }
 
+// Add FleetVehicleDriver interface to lib/fleet.ts in both projects
+
+export interface FleetVehicleDriver {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email?: string;
+  address: string;               // Where the vehicle is serviced (business address)
+  arrivalInstructions?: string;  // Gate codes, parking, where to find the vehicle
+  preferredTime?: string;        // Default service time e.g. "09:00"
+}
+
+// Updated FleetVehicle interface — add driver field:
 export interface FleetVehicle {
   _id: string;
-  fleetAccountId: string;       // references FleetAccount._id
+  fleetAccountId: string;
   year: string;
   make: string;
   model: string;
   vin?: string;
   licensePlate?: string;
   color?: string;
-  nickname?: string;            // e.g. "Truck #3" or "Manager's Sedan"
-  active: boolean;
-  addedAt: string;
-  addedBy: string;              // admin email
-  photoUrl?: string;            // ← add this
-  recurringSchedule?: {         // ← and this
+  nickname?: string;
+  photoUrl?: string;
+  driver?: FleetVehicleDriver;   // ← add this
+  recurringSchedule?: {
     active: boolean;
     startDate: string;
     intervalDays: number;
@@ -53,6 +64,9 @@ export interface FleetVehicle {
     monthsOut: number;
     generatedAt: string;
   };
+  active: boolean;
+  addedAt: string;
+  addedBy: string;
 }
 
 export interface FleetServiceVisit {

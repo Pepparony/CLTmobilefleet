@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
+import RequestServiceModal from './RequestServiceModal';
 import type { FleetAccount, FleetVehicle, FleetServiceVisit } from '@/lib/fleet';
 
 interface Props {
@@ -34,9 +35,7 @@ function statusLabel(status: FleetServiceVisit['status']) {
 // ─── Vehicle Card ─────────────────────────────────────────────────────────────
 
 function VehicleCard({
-  vehicle,
-  visits,
-  onSelect,
+  vehicle, visits, onSelect,
 }: {
   vehicle:  FleetVehicle;
   visits:   FleetServiceVisit[];
@@ -55,7 +54,6 @@ function VehicleCard({
       onClick={() => onSelect(vehicle)}
       className="w-full bg-[#171717] border border-white/8 rounded-2xl overflow-hidden text-left hover:border-yellow-500/30 transition-all group"
     >
-      {/* Photo */}
       <div className="relative h-40 overflow-hidden bg-white/5">
         {vehicle.photoUrl ? (
           <img
@@ -68,24 +66,17 @@ function VehicleCard({
             <span className="text-5xl opacity-30">🚐</span>
           </div>
         )}
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#171717] via-[#171717]/20 to-transparent" />
-        {/* Arrow */}
         <div className="absolute top-3 right-3 text-gray-500 group-hover:text-yellow-400 transition text-lg">→</div>
-        {/* Name on photo */}
         <div className="absolute bottom-3 left-4 right-8">
           <p className="text-white font-bold text-base leading-tight">
             {vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
           </p>
           {vehicle.nickname && (
-            <p className="text-gray-400 text-xs mt-0.5">
-              {vehicle.year} {vehicle.make} {vehicle.model}
-            </p>
+            <p className="text-gray-400 text-xs mt-0.5">{vehicle.year} {vehicle.make} {vehicle.model}</p>
           )}
         </div>
       </div>
-
-      {/* Body */}
       <div className="p-4">
         <div className="grid grid-cols-3 gap-2 mb-3">
           <div className="bg-white/4 rounded-xl px-2 py-2.5 text-center">
@@ -97,7 +88,6 @@ function VehicleCard({
             <p className="text-white text-xs font-semibold">{lastCompleted ? fmtDate(lastCompleted.scheduledDate) : 'None yet'}</p>
           </div>
         </div>
-
         {nextScheduled ? (
           <div className="bg-yellow-500/8 border border-yellow-500/20 rounded-xl px-3.5 py-2.5">
             <p className="text-yellow-400 text-[9px] font-bold uppercase tracking-wider mb-0.5">Next Visit</p>
@@ -153,21 +143,19 @@ function ReportModal({ visit, vehicle, onClose }: {
   const photos = r.photos || [];
 
   const inspectionItems = [
-    { label: 'Coolant',       val: r.coolantStatus },
-    { label: 'Brake Fluid',   val: r.brakeFluidStatus },
-    { label: 'Front Brakes',  val: r.frontBrakesLife ? `${r.frontBrakesLife}mm` : undefined },
-    { label: 'Rear Brakes',   val: r.rearBrakesLife  ? `${r.rearBrakesLife}mm`  : undefined },
-    { label: 'Battery',       val: r.batteryVoltage  ? `${r.batteryVoltage}V`   : undefined },
-    { label: 'Tire Tread',    val: r.tireTread },
-    { label: 'Oil Changed',   val: r.oilChanged !== undefined ? (r.oilChanged ? 'Yes' : 'No') : undefined },
-    { label: 'Mileage',       val: r.mileageAtService ? `${Number(r.mileageAtService).toLocaleString()} mi` : undefined },
+    { label: 'Coolant',      val: r.coolantStatus },
+    { label: 'Brake Fluid',  val: r.brakeFluidStatus },
+    { label: 'Front Brakes', val: r.frontBrakesLife ? `${r.frontBrakesLife}mm` : undefined },
+    { label: 'Rear Brakes',  val: r.rearBrakesLife  ? `${r.rearBrakesLife}mm`  : undefined },
+    { label: 'Battery',      val: r.batteryVoltage  ? `${r.batteryVoltage}V`   : undefined },
+    { label: 'Tire Tread',   val: r.tireTread },
+    { label: 'Oil Changed',  val: r.oilChanged !== undefined ? (r.oilChanged ? 'Yes' : 'No') : undefined },
+    { label: 'Mileage',      val: r.mileageAtService ? `${Number(r.mileageAtService).toLocaleString()} mi` : undefined },
   ].filter(i => i.val);
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-[#171717] border border-white/10 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl" onClick={e => e.stopPropagation()}>
-
-        {/* Header */}
         <div className="bg-[#0f0f0f] border-b border-white/8 px-6 py-4 flex items-center justify-between flex-shrink-0">
           <div>
             <p className="text-yellow-400 text-[10px] font-bold uppercase tracking-[0.15em] mb-0.5">Service Report</p>
@@ -182,9 +170,7 @@ function ReportModal({ visit, vehicle, onClose }: {
           <button onClick={onClose} className="text-gray-500 hover:text-white w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/8 transition text-xl">×</button>
         </div>
 
-        {/* Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-5">
-
           <div className="bg-white/4 border border-white/8 rounded-xl px-4 py-4">
             <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-2">🔧 Work Performed</p>
             <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">{r.workPerformed}</p>
@@ -249,7 +235,6 @@ function ReportModal({ visit, vehicle, onClose }: {
         </div>
       </div>
 
-      {/* Lightbox */}
       {lightboxIdx !== null && (
         <div className="fixed inset-0 z-[60] bg-black/95 flex flex-col" onClick={() => setLightboxIdx(null)}>
           <div className="flex justify-between items-center px-5 py-3 flex-shrink-0" onClick={e => e.stopPropagation()}>
@@ -293,7 +278,6 @@ function VehicleDetail({ vehicle, visits, onBack }: {
         ← Back to Fleet
       </button>
 
-      {/* Vehicle header with photo */}
       <div className="bg-[#171717] border border-white/8 rounded-2xl overflow-hidden mb-6">
         {vehicle.photoUrl && (
           <div className="relative h-48 overflow-hidden">
@@ -320,7 +304,6 @@ function VehicleDetail({ vehicle, visits, onBack }: {
         </div>
       </div>
 
-      {/* Visit history */}
       <div className="bg-[#171717] border border-white/8 rounded-2xl overflow-hidden">
         <div className="px-5 py-3.5 border-b border-white/8">
           <h3 className="text-white font-bold text-sm">Service History</h3>
@@ -331,11 +314,7 @@ function VehicleDetail({ vehicle, visits, onBack }: {
           </div>
         ) : (
           vehicleVisits.map(visit => (
-            <VisitRow
-              key={visit._id}
-              visit={visit}
-              onClick={v => v.status === 'completed' && setSelectedVisit(v)}
-            />
+            <VisitRow key={visit._id} visit={visit} onClick={v => v.status === 'completed' && setSelectedVisit(v)} />
           ))
         )}
       </div>
@@ -350,7 +329,8 @@ function VehicleDetail({ vehicle, visits, onBack }: {
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 
 export default function FleetDashboard({ account, vehicles, visits }: Props) {
-  const [selectedVehicle, setSelectedVehicle] = useState<FleetVehicle | null>(null);
+  const [selectedVehicle,    setSelectedVehicle]    = useState<FleetVehicle | null>(null);
+  const [showServiceRequest, setShowServiceRequest] = useState(false);
 
   const totalCompleted = visits.filter(v => v.status === 'completed').length;
   const nextVisit = visits
@@ -360,7 +340,6 @@ export default function FleetDashboard({ account, vehicles, visits }: Props) {
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
 
-      {/* Header */}
       <header className="bg-[#0a0a0a] border-b border-white/8 sticky top-0 z-20">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -385,15 +364,21 @@ export default function FleetDashboard({ account, vehicles, visits }: Props) {
           <VehicleDetail vehicle={selectedVehicle} visits={visits} onBack={() => setSelectedVehicle(null)} />
         ) : (
           <>
-            {/* Welcome */}
             <div className="mb-8">
               <h1 className="text-white text-3xl font-bold mb-1">
                 Welcome back, {account.contactName.split(' ')[0]}.
               </h1>
-              <p className="text-gray-500 text-sm">Here's the current status of your fleet.</p>
+              <div className="flex items-center gap-3">
+                <p className="text-gray-500 text-sm">Here's the current status of your fleet.</p>
+                <button
+                  onClick={() => setShowServiceRequest(true)}
+                  className="flex-shrink-0 bg-yellow-500 hover:bg-yellow-400 text-[#171717] font-bold text-xs px-4 py-2 rounded-xl transition"
+                >
+                  + Request a Service
+                </button>
+              </div>
             </div>
 
-            {/* Summary */}
             <div className="grid grid-cols-3 gap-4 mb-8">
               <div className="bg-[#171717] border border-white/8 rounded-2xl px-5 py-4">
                 <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Vehicles</p>
@@ -411,7 +396,6 @@ export default function FleetDashboard({ account, vehicles, visits }: Props) {
               </div>
             </div>
 
-            {/* Vehicle grid */}
             <div>
               <h2 className="text-white font-bold text-lg mb-4">Your Fleet</h2>
               {vehicles.length === 0 ? (
@@ -434,6 +418,15 @@ export default function FleetDashboard({ account, vehicles, visits }: Props) {
           </>
         )}
       </main>
+
+      {showServiceRequest && (
+        <RequestServiceModal
+          vehicles={vehicles}
+          accountId={account._id}
+          companyName={account.companyName}
+          onClose={() => setShowServiceRequest(false)}
+        />
+      )}
     </div>
   );
 }
